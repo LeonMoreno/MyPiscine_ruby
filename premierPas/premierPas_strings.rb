@@ -1,7 +1,7 @@
-# Data Types
+# # Data Types
 
-user_name = "leo"
-dia_hoy = "Martes"
+# user_name = "leo"
+dia_hoy = "Jueves"
 user_age = 42
 pi = 3.141592
 
@@ -55,3 +55,5 @@ puts jo[0]
 
 ##INDEX
 puts dia_hoy.index("e")
+
+puts "Dia es: #{dia_hoy[3..-1]}"
