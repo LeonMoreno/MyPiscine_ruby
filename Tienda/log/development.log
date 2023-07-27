@@ -1,0 +1,1183 @@
+Started GET "/" for 127.0.0.1 at 2023-07-20 14:27:46 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.1ms | Allocations: 633)
+Completed 200 OK in 12ms (Views: 3.5ms | ActiveRecord: 0.0ms | Allocations: 7151)
+
+
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:27:53 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/favicon.ico" for 127.0.0.1 at 2023-07-20 14:27:53 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:28:11 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:28:29 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:28:33 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:28:49 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:30:20 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:30:23 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 14:30:39 -0400
+  
+RuntimeError (Sidekiq::Web needs a valid Rack session for CSRF protection. If this is a Rails app,
+make sure you mount Sidekiq::Web *inside* your application routes:
+
+
+Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq"
+  ....
+end
+
+
+If this is a Rails app in API mode, you need to enable sessions.
+
+  https://guides.rubyonrails.org/api_app.html#using-session-middlewares
+
+If this is a bare Rack app, use a session middleware before Sidekiq::Web:
+
+  # first, use IRB to create a shared secret key for sessions and commit it
+  require 'securerandom'; File.open(".session.key", "w") {|f| f.write(SecureRandom.hex(32)) }
+
+  # now use the secret with a session cookie middleware
+  use Rack::Session::Cookie, secret: File.read(".session.key"), same_site: true, max_age: 86400
+  run Sidekiq::Web
+
+):
+  
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:69:in `session'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:49:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/stylesheets/bootstrap.css" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/application.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/chart.min.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/chartjs-plugin-annotation.min.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/stylesheets/application.css" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/dashboard-charts.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/dashboard.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/stylesheets/application-dark.css" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/images/status.png" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/javascripts/base-charts.js" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/images/favicon.ico" for 127.0.0.1 at 2023-07-20 17:04:52 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:04:57 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:02 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:07 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:17 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:05:19 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:05:30 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:05:31 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:05:33 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:05:44 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:05:46 -0400
+Started GET "/sidekiq/retries" for 127.0.0.1 at 2023-07-20 17:05:47 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:05:51 -0400
+Started GET "/sidekiq/morgue" for 127.0.0.1 at 2023-07-20 17:05:52 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:05:53 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:53 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:05:59 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:04 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:09 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:19 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:24 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:29 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:34 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:39 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:44 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:49 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:54 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:06:59 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:04 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:23 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:24 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:29 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:34 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:39 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:44 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:49 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:54 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:07:59 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:08:04 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:08:09 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:08:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:08:19 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:08:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:41 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:44 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:09:44 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:44 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:49 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:09:49 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:09:57 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:09:57 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:02 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:07 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:17 -0400
+  
+RedisClient::CannotConnectError (Connection refused - connect(2) for 127.0.0.1:6379):
+  
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:1217:in `__connect_nonblock'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:1217:in `connect_nonblock'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:60:in `connect_internal'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:141:in `connect'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:645:in `block in tcp'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:231:in `each'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:231:in `foreach'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:635:in `tcp'
+redis-client (0.14.1) lib/redis_client/ruby_connection.rb:111:in `connect'
+redis-client (0.14.1) lib/redis_client/connection_mixin.rb:11:in `reconnect'
+redis-client (0.14.1) lib/redis_client.rb:667:in `block in connect'
+redis-client (0.14.1) lib/redis_client/middlewares.rb:12:in `connect'
+redis-client (0.14.1) lib/redis_client.rb:666:in `connect'
+redis-client (0.14.1) lib/redis_client.rb:657:in `raw_connection'
+redis-client (0.14.1) lib/redis_client.rb:624:in `ensure_connected'
+redis-client (0.14.1) lib/redis_client.rb:359:in `pipelined'
+redis-client (0.14.1) lib/redis_client/decorator.rb:51:in `pipelined'
+sidekiq (7.1.2) lib/sidekiq/api.rb:88:in `block in fetch_stats_fast!'
+sidekiq (7.1.2) lib/sidekiq/config.rb:164:in `block in redis'
+connection_pool (2.4.1) lib/connection_pool.rb:110:in `block (2 levels) in with'
+connection_pool (2.4.1) lib/connection_pool.rb:109:in `handle_interrupt'
+connection_pool (2.4.1) lib/connection_pool.rb:109:in `block in with'
+connection_pool (2.4.1) lib/connection_pool.rb:106:in `handle_interrupt'
+connection_pool (2.4.1) lib/connection_pool.rb:106:in `with'
+sidekiq (7.1.2) lib/sidekiq/config.rb:161:in `redis'
+sidekiq (7.1.2) lib/sidekiq.rb:73:in `redis'
+sidekiq (7.1.2) lib/sidekiq/api.rb:87:in `fetch_stats_fast!'
+sidekiq (7.1.2) lib/sidekiq/api.rb:30:in `initialize'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:308:in `new'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:308:in `block in <class:WebApplication>'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:338:in `instance_exec'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:338:in `block in call'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:336:in `catch'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:336:in `call'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:52:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.7) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:22 -0400
+  
+RedisClient::CannotConnectError (Connection refused - connect(2) for 127.0.0.1:6379):
+  
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:1217:in `__connect_nonblock'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:1217:in `connect_nonblock'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:60:in `connect_internal'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:141:in `connect'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:645:in `block in tcp'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:231:in `each'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:231:in `foreach'
+/Users/lmoreno/.rbenv/versions/3.2.2/lib/ruby/3.2.0/socket.rb:635:in `tcp'
+redis-client (0.14.1) lib/redis_client/ruby_connection.rb:111:in `connect'
+redis-client (0.14.1) lib/redis_client/connection_mixin.rb:11:in `reconnect'
+redis-client (0.14.1) lib/redis_client.rb:667:in `block in connect'
+redis-client (0.14.1) lib/redis_client/middlewares.rb:12:in `connect'
+redis-client (0.14.1) lib/redis_client.rb:666:in `connect'
+redis-client (0.14.1) lib/redis_client.rb:657:in `raw_connection'
+redis-client (0.14.1) lib/redis_client.rb:624:in `ensure_connected'
+redis-client (0.14.1) lib/redis_client.rb:359:in `pipelined'
+redis-client (0.14.1) lib/redis_client/decorator.rb:51:in `pipelined'
+sidekiq (7.1.2) lib/sidekiq/api.rb:88:in `block in fetch_stats_fast!'
+sidekiq (7.1.2) lib/sidekiq/config.rb:164:in `block in redis'
+connection_pool (2.4.1) lib/connection_pool.rb:110:in `block (2 levels) in with'
+connection_pool (2.4.1) lib/connection_pool.rb:109:in `handle_interrupt'
+connection_pool (2.4.1) lib/connection_pool.rb:109:in `block in with'
+connection_pool (2.4.1) lib/connection_pool.rb:106:in `handle_interrupt'
+connection_pool (2.4.1) lib/connection_pool.rb:106:in `with'
+sidekiq (7.1.2) lib/sidekiq/config.rb:161:in `redis'
+sidekiq (7.1.2) lib/sidekiq.rb:73:in `redis'
+sidekiq (7.1.2) lib/sidekiq/api.rb:87:in `fetch_stats_fast!'
+sidekiq (7.1.2) lib/sidekiq/api.rb:30:in `initialize'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:308:in `new'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:308:in `block in <class:WebApplication>'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:338:in `instance_exec'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:338:in `block in call'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:336:in `catch'
+sidekiq (7.1.2) lib/sidekiq/web/application.rb:336:in `call'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:52:in `admit'
+sidekiq (7.1.2) lib/sidekiq/web/csrf_protection.rb:41:in `call'
+rack (2.2.7) lib/rack/static.rb:161:in `call'
+rack (2.2.7) lib/rack/builder.rb:244:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:105:in `call'
+sidekiq (7.1.2) lib/sidekiq/web.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:19:in `block in <class:Constraints>'
+actionpack (7.0.6) lib/action_dispatch/routing/mapper.rb:48:in `serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.6) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.7) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.7) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+rack (2.2.7) lib/rack/etag.rb:27:in `call'
+rack (2.2.7) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.7) lib/rack/head.rb:12:in `call'
+activerecord (7.0.6) lib/active_record/migration.rb:603:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.6) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.6) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.6) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.6) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.7) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.6) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.7) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.6) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.6) lib/rails/engine.rb:530:in `call'
+puma (5.6.6) lib/puma/configuration.rb:252:in `call'
+puma (5.6.6) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.6) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.6) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.6) lib/puma/server.rb:443:in `process_client'
+puma (5.6.6) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:47 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:52 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:10:57 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:11:00 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:11:00 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:11:05 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:11:06 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:11:55 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:11:58 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:11:59 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:12:09 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:21:06 -0400
+Started GET "/sidekiq/retries" for 127.0.0.1 at 2023-07-20 17:21:07 -0400
+Started GET "/sidekiq/morgue" for 127.0.0.1 at 2023-07-20 17:21:13 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:22:54 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:22:57 -0400
+Started GET "/sidekiq/retries" for 127.0.0.1 at 2023-07-20 17:22:58 -0400
+Started GET "/sidekiq/retries" for 127.0.0.1 at 2023-07-20 17:23:06 -0400
+Started GET "/sidekiq/morgue" for 127.0.0.1 at 2023-07-20 17:23:08 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:23:10 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:11 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:16 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:21 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:26 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:31 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:41 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:46 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:51 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:23:56 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:24:01 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:24:06 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:24:11 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:24:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:25:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:26:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:27:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:28:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:29:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:30:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:31:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:32:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:33:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:34:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:34:16 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:34:16 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:34:46 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:34:46 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:34:51 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:34:55 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:34:56 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:35:01 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:05 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:10 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:15 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:20 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:25 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:30 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:35 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:40 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:45 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:50 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:35:55 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:36:00 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:36:05 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:36:11 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:13 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:36:16 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:19 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:24 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:29 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:34 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:39 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:44 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:49 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:36:54 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:36:58 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:04 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:09 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:14 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:19 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:19 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:24 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:29 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:34 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:40 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:45 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:50 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:37:55 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:01 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:07 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:13 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:19 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:25 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:31 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:37 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:43 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:49 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:38:55 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:39:01 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:39:07 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:39:12 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:39:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:19 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:39:20 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:39:24 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:24 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:29 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:34 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:39 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:44 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:49 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:54 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:39:59 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:00 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:05 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:40:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:41:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:42:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:43:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:44:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:45:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:46:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:47:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:48:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:49:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:50:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:34 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:40 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:46 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:52 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:51:58 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:04 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:10 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:16 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:22 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:28 -0400
+Started GET "/sidekiq/scheduled" for 127.0.0.1 at 2023-07-20 17:52:34 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:52:38 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:52:38 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:52:42 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:52:42 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:52:47 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:52:52 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:52:57 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:02 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:07 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:17 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:22 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:27 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:32 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:37 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:42 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:47 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:52 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:53:57 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:54:02 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:54:07 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:10 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:54:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:54:12 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:54:17 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:54:22 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:25 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:30 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:32 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:35 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:39 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:44 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:49 -0400
+Started GET "/sidekiq/busy" for 127.0.0.1 at 2023-07-20 17:54:54 -0400
+Started GET "/sidekiq/queues" for 127.0.0.1 at 2023-07-20 17:54:57 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:55:00 -0400
+Started GET "/sidekiq/morgue" for 127.0.0.1 at 2023-07-20 17:55:05 -0400
+Started GET "/sidekiq/queues/high" for 127.0.0.1 at 2023-07-20 17:55:05 -0400
+Started GET "/sidekiq/morgue" for 127.0.0.1 at 2023-07-20 17:55:11 -0400
+Started GET "/sidekiq/" for 127.0.0.1 at 2023-07-20 17:55:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:14 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:20 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:25 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:30 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:35 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:40 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:45 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:50 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:55:55 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:00 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:05 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:10 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:15 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:20 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:25 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:30 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:35 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:40 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:45 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:50 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:56:55 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:57:00 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:57:05 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:57:10 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:57:15 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:57:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:58:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 17:59:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:00:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:01:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:02:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:03:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:04:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:05:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:06:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:07:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:08:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:09:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:10:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:11:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:12:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:13:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:14:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:15:36 -0400
+Started GET "/sidekiq/stats" for 127.0.0.1 at 2023-07-20 18:16:36 -0400
