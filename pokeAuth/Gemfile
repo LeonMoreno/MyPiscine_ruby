@@ -16,6 +16,10 @@ gem 'mysql2'
 gem 'grape'
 gem 'grape-active_model_serializers'
 
+# use of swager
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 

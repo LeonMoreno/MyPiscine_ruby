@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  # mount GrapeSwaggerRails::Engine => '/swagger'
   mount PokedexAuth::Base => '/'
 end

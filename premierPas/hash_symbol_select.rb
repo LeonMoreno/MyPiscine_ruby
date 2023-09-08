@@ -12,3 +12,11 @@ movie_ratings = {
 
 good_movies = movie_ratings.select{ |k, v| v > 3}
 puts good_movies
+
+ensayo = {
+  'name' => 'leo'
+}
+
+# ensayo.deep_symbolize_keys
+
+# puts ensayo
