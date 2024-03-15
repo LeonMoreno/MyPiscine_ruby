@@ -7,12 +7,18 @@ module PokedexAuth
       format :json
       prefix :api
 
-      namespace :health do
+      resource :health do
         desc 'Return Ok'
-        get  '/' do
+        before do
+          # puts headers
+          # error!('Acceso denegado', 403) unless headers['Authorization'] == 'MiTokenSecreto'
+          authenticate!
+        end
+        get '/' do
           { api: 'ok' }
         end
       end
     end
   end
 end
+

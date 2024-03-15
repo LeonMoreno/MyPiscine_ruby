@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_162546) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_181942) do
   create_table "pokemons", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "num"
     t.string "name"
@@ -25,6 +25,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_162546) do
     t.integer "speed"
     t.integer "generation"
     t.boolean "legendary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email"
+    t.string "name"
+    t.string "auth_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

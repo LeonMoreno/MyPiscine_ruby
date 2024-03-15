@@ -1,0 +1,2 @@
+class GasRecord < ApplicationRecord
+end

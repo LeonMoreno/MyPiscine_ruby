@@ -1,0 +1,19 @@
+<br> </br>
+
+<%if @pets.blank? %>
+    <strong> THERE ARE NO PETS </strong>
+<%else%>
+    <storng> Your peths ! </strong><br></br>
+    <table>
+            <tr>
+                <th>Name</th>
+                <th>Breed</th>
+            </tr>
+            <% @pets.each do |pet| %>
+            <tr>
+                <td><%= pet.name %></td>
+                <td><%= pet.breed %></td>
+            </tr>
+        <% end %>
+    </table>
+<%end%>
